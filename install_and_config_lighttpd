@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 apk add lighttpd
 
 mkdir -p /var/www/localhost/htdocs/stats /var/log/lighttpd /var/lib/lighttpd
