@@ -1,0 +1,16 @@
+#!/bin/bash
+#fix the php and fpm version
+set -e
+mkdir -p /var/run/php-fpm7/
+
+chown lighttpd:root /var/run/php-fpm7
+
+sed -i -r 's|^.*listen =.*|listen = /run/php-fpm7/php7-fpm.sock|g' /etc/php*/php-fpm.d/www.conf
+
+sed -i -r 's|^pid =.*|pid = /run/php-fpm7/php7-fpm.pid|g' /etc/php*/php-fpm.conf
+
+sed -i -r 's|^.*listen.mode =.*|listen.mode = 0640|g' /etc/php*/php-fpm.d/www.conf
+
+rc-update add php-fpm7 default
+
+service php-fpm7 restart
